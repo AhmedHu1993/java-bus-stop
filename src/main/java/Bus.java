@@ -21,14 +21,17 @@ public class Bus {
         return this.passengers.size();
     }
 
-    public void addPassenger(Person person) {
-        if(this.passengers.size() < capacity){
-            this.passengers.add(person);
-        }
-    }
-
 
     public void removePassenger(Person person) {
         this.passengers.remove(person);
+    }
+
+    public void pickUpPassengerFromBusStop(BusStop busStop) {
+        Person person = busStop.removePersonFromQueue();
+
+        if (this.passengers.size() < this.capacity){
+            this.passengers.add(person);
+        }
+
     }
 }

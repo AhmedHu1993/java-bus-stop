@@ -1,18 +1,22 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BusTest {
 
     private Bus bus;
     private Person person;
+    private BusStop busStop;
 
     @Before
     public void before(){
         bus = new Bus("Haymarket", 2);
         person = new Person();
+        busStop = new BusStop("Usher Hall");
+        busStop.addPersonToQueue(person);
+        busStop.addPersonToQueue(person);
+        busStop.addPersonToQueue(person);
     }
 
     @Test
@@ -22,22 +26,20 @@ public class BusTest {
 
     @Test
     public void numberOfPassengersOnBus(){
-        bus.addPassenger(person);
+        bus.pickUpPassengerFromBusStop(busStop);
         assertEquals(1, bus.getPassengers());
     }
 
     @Test
-    public void passengerCanBoardBus(){
-        bus.addPassenger(person);
-        bus.addPassenger(person);
-        bus.addPassenger(person);
-        assertEquals(2, bus.getPassengers());
+    public void testBusCanPickUpPersonFromBusStop(){
+        bus.pickUpPassengerFromBusStop(busStop);
+        assertEquals(1, bus.getPassengers());
     }
 
     @Test
     public void passengerCanLeaveBus(){
-        bus.addPassenger(person);
-        bus.addPassenger(person);
+        bus.pickUpPassengerFromBusStop(busStop);
+        bus.pickUpPassengerFromBusStop(busStop);
         bus.removePassenger(person);
         assertEquals(1, bus.getPassengers());
     }
